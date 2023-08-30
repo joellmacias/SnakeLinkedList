@@ -22,13 +22,12 @@ import javax.swing.Timer;
  * @author joellmacias
  */
 public class Panel extends JPanel implements KeyListener, ActionListener {
-
-    boolean running = false;
+boolean running = false;
     Random random;
     Timer timer;
     static final int SCREEN_WIDTH = 800;
     static final int SCREEN_HEIGHT = 800;
-    static final int DELAY = 75;
+    static final int DELAY = 100;
     int letterx;
     int lettery;
     int[] numberx = new int[10];
@@ -58,6 +57,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         if (running) {
             paintComponent(g);
 
+            //put your rendering code here
             g.setColor(Color.white);
             g.setFont(new Font("Arial", Font.PLAIN, 25));
             g.drawString(letter, letterx, lettery);  //Draw letter
@@ -72,7 +72,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
             for (int i = 0; i < snake.length; i++) 
             {
                 if (i == 0) {
-                    g.drawString(snake.headCharacter, snake.x[i], snake.y[i]);
+                    g.drawString(snake.head.data, snake.x[i], snake.y[i]);
                 } else {
                     g.drawString(String.valueOf(currentNode.next.data), snake.x[i], snake.y[i]);
                     currentNode = currentNode.next;
@@ -216,3 +216,5 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
 
     }
 }
+
+    
