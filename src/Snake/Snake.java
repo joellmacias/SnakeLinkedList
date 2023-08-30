@@ -14,13 +14,11 @@ public class Snake {
     int length = 1;
     Node<String> head;
 
-    String headCharacter;
     char direction = 'R';
     final int x[] = new int[25600];
     final int y[] = new int[25600];
 
     Snake(String init_snake, int x, int y) {
-        this.headCharacter = init_snake;
         this.x[0] = x;
         this.y[0] = y;
         addHead(init_snake);
@@ -65,23 +63,34 @@ public class Snake {
     }
 
     public void remove(int position) {
+        if (position == 0)
+        {
+            if (head != null)
+            {
+                length--;
+                head = head.next;
+            }
+        }
+        else{
         removeByIndex(head, position);
+        }
     }
 
-    private void removeByIndex(Node head, int position) {
-        if (position > length) {
+    private void removeByIndex(Node headNode, int position) {
+        if (position >= length) {
             removeFromTail();
             return;
         }
-        if (head.next == null) {
+        if (headNode.next == null) {
             return;
         }
         if (position == 1) {
             length--;
-            head.next = head.next.next;
+            headNode.next = headNode.next.next;
         } else {
-            removeByIndex(head.next, position - 1);
+            removeByIndex(headNode.next, position - 1);
         }
+        
     }
 
     public Node removeFromTail() {
@@ -90,7 +99,7 @@ public class Snake {
         }
         return removeFromTail(head);
     }
-    
+
     private Node removeFromTail(Node node) {
         if (node.next.next == null) {
             length--;
@@ -102,6 +111,7 @@ public class Snake {
             return removeFromTail(node.next);
         }
     }
+
     //to move snake
     public void move() {
         for (int i = length; i > 0; i--) {
